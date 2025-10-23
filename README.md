@@ -51,9 +51,8 @@ JAIRO Cloud（WEKO3）の管理画面の［統計］＞［運用レポート］�
 
 ## リンク
 -  定型レポートの出力方法の詳細やフォーマットや内容の解説は「JAIRO Cloud（WEKO3）基本マニュアル 統計機能」のうち以下をご覧ください。
-   -  [1．定型レポートの出力](https://meatwiki.nii.ac.jp/confluence/pages/viewpage.action?pageId=63868532#id-%E7%B5%B1%E8%A8%88%E6%A9%9F%E8%83%BD-1%EF%BC%8E%E5%AE%9A%E5%9E%8B%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E5%87%BA%E5%8A%9B)
-   -  [定型レポートのタイプ一覧](https://meatwiki.nii.ac.jp/confluence/pages/viewpage.action?pageId=63868532#id-%E7%B5%B1%E8%A8%88%E6%A9%9F%E8%83%BD-%E5%AE%9A%E5%9E%8B%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%AE%E3%82%BF%E3%82%A4%E3%83%97%E4%B8%80%E8%A6%A7)
-
+   -  [1．定型レポートの出力](https://jpcoar.org/support/jairo-cloud/manual/statistics/#m1)
+   -  [定型レポートのタイプ一覧](https://jpcoar.org/support/jairo-cloud/manual/statistics/#m1.1-list)
 ## 更新
  - 2025/01/04
    - 最初のリリース
