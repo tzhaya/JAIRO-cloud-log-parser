@@ -16,6 +16,27 @@ docs/04 の「推奨する実施順序」に従います。まず設計意図の
 | 6 | [#5](https://github.com/tzhaya/JAIRO-cloud-log-parser/issues/5) | [issue-05](issue-05-oa-difference-query.md) | Excel（新規クエリ） | Medium |
 | 7 | [#7](https://github.com/tzhaya/JAIRO-cloud-log-parser/issues/7) | [issue-07](issue-07-sample-data.md) | リポジトリ（サンプル TSV）＋docs | Low |
 
+## 実装状況（2026-07-15 時点）
+
+テキスト系（このリポジトリで直接編集できるもの）は実装・コミット済みです。Excel ワークブック（`.xlsx`）内のシート・Power Query の変更は Power Query エディターでの手作業が必要で、プログラムからは安全に自動編集できないため**未実施**です。各計画に貼り付け可能な文言・M コードを用意してあります。
+
+| Issue | テキスト系 | Excel 手作業 | 状態 |
+|---|---|---|---|
+| #1 | README「統計値の意味」節を追加 | — | **完了** |
+| #2 | README「集計値の選択」節を追加 | Usage and Config への説明（#6 に合流） | テキスト完了 / Excel 残 |
+| #3 | README のOAシート説明に注記追加 | `Filedownload (OA)` シートへの注記 | テキスト完了 / Excel 残 |
+| #4 | README「集計時の注意」節を追加 | Usage and Config への注意書き（#6 に合流） | テキスト完了 / Excel 残 |
+| #5 | — | 新規クエリ `OA Difference` とシート追加＋README のシート説明 | Excel 残（M コードは計画に用意） |
+| #6 | — | Usage and Config への目的別ガイド表 | Excel 残（表は計画に用意） |
+| #7 | `samples/` の TSV 4 件＋`samples/README.md`＋README 追記 | サンプルで「すべて更新」して期待値を照合 | テキスト完了 / 照合は Excel 残 |
+
+### Excel 手作業として残っている項目（貼り付け用素材は各計画に記載）
+1. **Usage and Config シート**（#6、#2・#4 の Excel 側を包含）：目的別ガイド表＋指標選択・単純加算注意の補足。→ [issue-06](issue-06-purpose-guide-sheet.md)
+2. **Filedownload (OA) シートの注記**（#3）：`accessrole = open_access` のみ・`open_date` 非包含・部分集合。→ [issue-03](issue-03-oa-sheet-clarification.md)
+3. **OA Difference クエリ／シート新設**（#5）：M コード貼り付け → 新規シート出力 → README のシート説明追記。→ [issue-05](issue-05-oa-difference-query.md)
+4. **サンプルでの期待値照合**（#7）：`samples/` を `Path` に設定して「すべて更新」し、[samples/README.md](../../samples/README.md) の手計算期待値と一致するか確認。差異があれば解消。
+5. いずれの Excel 変更も、完了後に日付サフィックス付きの新ファイル名（例：`JAIRO_Cloud_log_parser_YYYYMMDD.xlsx`）で保存・コミットし、README のファイル名記載を更新する。
+
 ## 共通の前提と作業ルール
 
 - **2 種類の変更対象がある**：リポジトリ内のテキストファイル（README、docs/、サンプル TSV）はこのリポジトリ上で直接編集・コミットできる。Excel ワークブック内の変更（シート・Power Query）は Excel の Power Query エディターでの手作業となる。各計画では投入する文言・M コードを完成形で示し、Excel 上の作業を「貼り付けるだけ」に近づける。

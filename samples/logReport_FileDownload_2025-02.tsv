@@ -1,0 +1,13 @@
+JAIRO Cloud logReport_FileDownload (synthetic sample fixture)
+Aggregation month: 2025-02
+This file is a synthetic sample. Values are for testing only.
+No. Of File Downloads
+File Name	Registered Index Name	No. Of Times Downloaded	Non-Logged In User	Logged In User	Site License	Admin	Registrar
+file-a.pdf	Index A	12	12	0	0	0	0
+file-b.pdf	Index B	5	5	0	0	0	0
+file-c.pdf	Index C	3	0	3	0	0	0
+file-d.pdf	Index D	7	5	2	3	0	0
+
+Open-Access No. Of File Downloads
+File Name	Registered Index Name	No. Of Times Downloaded	Non-Logged In User	Logged In User	Site License	Admin	Registrar
+file-a.pdf	Index A	12	12	0	0	0	0

@@ -34,7 +34,11 @@ let
     差分列 = Table.AddColumn(OA補完, "Difference",
         each [All Downloads] - [OA Downloads], Int64.Type),
     状態列 = Table.AddColumn(差分列, "Status",
-        each if [All Downloads] = [OA Downloads] then "OA一致"
+        each
+        // 正常系は All = OA / OA = 0 / All > OA > 0 の 3 種のみ。
+        // OA > All や負数は本来ありえない不整合なので先に「要確認」に分類する。
+        if [OA Downloads] > [All Downloads] or [All Downloads] < 0 or [OA Downloads] < 0 then "要確認"
+        else if [All Downloads] = [OA Downloads] then "OA一致"
         else if [OA Downloads] = 0 then "OA側なし"
         else "部分一致", type text),
     列名変更 = Table.RenameColumns(状態列, {{"date", "Year-Month"}}),
@@ -46,7 +50,7 @@ in
 ## 作業手順
 
 1. 上記クエリを追加し、「閉じて読み込む」で新規シート「OA Difference」のテーブルとして出力する。
-2. シート上部に注記を 1 行入れる：「Difference の主な要因は accessrole が open_date／open_login／open_no／未設定のファイルです（詳細は docs/02）」。
+2. シート上部に注記を入れる：「Difference として考えられる要因には、accessrole が open_date／open_login／open_no／未設定のファイル、旧データ移行時の設定差、元レポートの不整合などがあります。原因の特定には item の JSON の accessrole 等を確認してください（詳細は docs/02）。このクエリ自体は accessrole を取得しないため、原因を断定するものではありません。」
 3. README「シートの説明」に「OA Difference」の項を追加する。
 4. ワークブックを日付サフィックス付きの新ファイル名で保存する。
 
@@ -62,5 +66,6 @@ in
 ## 検証
 
 - 実データ（複数月分）で「すべて更新」し、`OA Difference` の `All Downloads` 合計が `FileDownload by Month` の月合計と一致することを確認。
-- Status の 3 値が仕様どおり（All=OA→OA一致、OA=0→OA側なし、All>OA>0→部分一致）に出ることを目視確認。
-- Issue #7 のサンプル TSV があれば、`open_date` 相当ファイルが「OA側なし」になることを確認。
+- Status の値が仕様どおり（All=OA→OA一致、OA=0→OA側なし、All>OA>0→部分一致、それ以外→要確認）に出ることを目視確認。
+- 異常ケース（`OA > All` や負数）を意図的に含むデータで、「要確認」に分類され「部分一致」に紛れ込まないことを確認。
+- Issue #7 のサンプル TSV（`samples/`）で、`open_date` 相当の file-b が「OA側なし」になることを確認。

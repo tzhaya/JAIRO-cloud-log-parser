@@ -25,16 +25,20 @@
 - **DetailView**：4 列（末尾 2 列が `View Count` / `Non-logged-in User`）。単一セクション。
 - **ファイル名**：`logReport_FileDownload_` は 23 文字、`logReport_DetailView_` は 21 文字ちょうどであること（date 列は固定オフセットの `Text.Middle` で切り出されるため、命名を変えると年月が壊れる）。
 
-## サンプルデータ（docs/04 の例を採用、2025-01 分）
+## サンプルデータ（2025-01 分）
 
-| File Name | 全体 DL | Non-Logged In | Logged In | OA 側 | 意図 |
-|---|---|---|---|---|---|
-| file-a.pdf | 10 | 10 | 0 | 10 | `open_access`：全体と OA が一致 |
-| file-b.pdf | 8 | 8 | 0 | なし | 公開日経過後の `open_date`：公開中でも OA 側に出ない |
-| file-c.pdf | 4 | 0 | 4 | なし | ログイン利用のみ：Non-Logged In = 0 |
-| file-d.pdf | 6 | 4 | 2 | なし | 混在：内訳の単純加算と総数の違い |
+レビュー指摘（内訳合計が総数を超える行を必ず入れる）を反映し、file-d に Site License の重複を持たせている。
 
-2025-02 分は数値を変えた同構成とし、月別集計の検証に使う。DetailView 側も 2〜3 アイテムの最小構成を用意する。
+| File Name | 全体 DL | Non-Logged In | Logged In | Site License | OA 側 | 意図 |
+|---|---|---|---|---|---|---|
+| file-a.pdf | 10 | 10 | 0 | 0 | 10 | `open_access`：全体と OA が一致 |
+| file-b.pdf | 8 | 8 | 0 | 0 | なし | 公開日経過後の `open_date` 相当：公開中でも OA 側に出ない |
+| file-c.pdf | 4 | 0 | 4 | 0 | なし | ログイン利用のみ：Non-Logged In = 0 |
+| file-d.pdf | 6 | 4 | 2 | 2 | なし | 内訳が重複：内訳合計 4+2+2=8 > 総数 6 |
+
+2025-02 分は数値を変えた同構成（file-d は 7 / 5 / 2 / 3 で内訳合計 10 > 7）とし、月別集計の検証に使う。DetailView 側も 2 アイテムの最小構成を用意する。
+
+**実装状況**：上記サンプル TSV 4 ファイルと `samples/README.md`（手計算の期待値表つき）を作成済み。DetailView の先頭 2 列（`Item Id`／`Item Title`）は実レポートで確認すべきプレースホルダ（集計には不使用）。前置き 4 行は内容が読み飛ばされるため合成文言。
 
 ## 期待結果（samples/README.md に記載する内容）
 
@@ -47,11 +51,15 @@
 
 ## 作業手順
 
-1. 手元の実レポートから preamble・ヘッダーの正確な文言を確認し、サンプル TSV 4 ファイルを作成する（このリポジトリ上でテキストとして作成可能）。
-2. Excel の `Path` を `samples/` に向けて「すべて更新」し、全シートの実際の出力を採取する。
-3. 出力を基に `samples/README.md` の期待値表を確定する（期待値は手計算ではなく実出力で検証してから記載）。
-4. README にサンプルの存在と使い方を 1 段落追記する。
-5. Issue #5 の `OA Difference` シートが実装済みであれば、file-b／file-c／file-d が「OA側なし」になることも期待結果に含める。
+1. サンプル TSV 4 ファイルを作成する（`samples/` に作成済み）。ヘッダーは M コードから判明する列名を使用し、前置き 4 行は合成文言（読み飛ばされる）。DetailView の先頭 2 列は実レポートで要確認のプレースホルダ。
+2. **期待値は TSV の仕様から手計算で先に固定する**（`samples/README.md` に記載済み）。実出力を無検証で正としない（既存不具合を追認しないため）。
+3. Excel の `Path` を `samples/` に向けて「すべて更新」し、全シートの実出力を採取して手計算値と照合する。差異があれば原因を解消してから確定する（この照合は Excel 環境で実施：**未実施**）。
+4. README にサンプルの存在と使い方を追記する（追記済み）。
+5. Issue #5 の `OA Difference` シート実装時は、file-b／file-c／file-d が「OA側なし」になることを確認（`samples/README.md` に期待 Status を記載済み）。
+
+## accessrole を検証できないことの明記（レビュー反映）
+
+定型レポート TSV に `accessrole` 列は存在しない。`file-b` が OA セクションに出ないことは検証できるが、その原因が `open_date` であることはサンプル単体では証明できない。`samples/README.md` の「重要な注意」にこの旨を明記済み。原因確認には item の JSON（`accessrole` 等）を参照する（[docs/02](../02_accessrole_and_publication_state.md)）。
 
 ## 受け入れ基準との対応
 
