@@ -1,9 +1,9 @@
 # サンプルデータと期待結果
 
-このフォルダは、`JAIRO_Cloud_log_parser.xlsx` の動作確認用の**合成（ダミー）データ**です。実データは含みません。統計値の違い（総数・非ログイン利用・OA の差）が不具合ではなく WEKO3 の統計仕様どおりであることを確認し、ワークブック改修時の回帰テストにも使えるようにするためのものです（Issue #7）。
+このフォルダは、`JAIRO_Cloud_log_parser_YYYYMMDD.xlsx`（配布されているワークブック。現在は `JAIRO_Cloud_log_parser_20250104.xlsx`）の動作確認用の**合成（ダミー）データ**です。実データは含みません。統計値の違い（総数・非ログイン利用・OA の差）が不具合ではなく WEKO3 の統計仕様どおりであることを確認し、ワークブック改修時の回帰テストにも使えるようにするためのものです（Issue #7）。
 
 ## 使い方
-1. Excel で `JAIRO_Cloud_log_parser.xlsx` を開きます。
+1. Excel で配布されているワークブック（`JAIRO_Cloud_log_parser_YYYYMMDD.xlsx`）を開きます。
 2. 「Usage and Config」シートの `定型レポートの場所`（セル B9）に、この `samples/` フォルダの絶対パスを貼り付けます。
 3. 「データ」タブの「すべて更新」を押します。
 4. 各シートの出力を、後述の「期待結果」表と照合します。
@@ -39,7 +39,7 @@
 
 ## 期待結果（手計算）
 
-### シート FileDownload（前半・行レベル）
+### シート File Download（前半・行レベル）
 | date | File Name | No. Of Times Downloaded | Non-Logged In User | Logged In User | Site License | Admin | Registrar |
 |---|---|---|---|---|---|---|---|
 | 2025-01 | file-a.pdf | 10 | 10 | 0 | 0 | 0 | 0 |
@@ -67,7 +67,7 @@ file-b・file-c・file-d は OA セクションに存在しないため、ここ
 
 2025-01 は総数 28 に対し、内訳列の合計は 22 + 6 + 2 = 30 で一致しません（単純加算不可の例）。
 
-### シート DetailVIew（行レベル）
+### シート Detail View（行レベル）
 | date | Item Id | Item Title | View Count | Non-logged-in User |
 |---|---|---|---|---|
 | 2025-01 | item-0001 | Sample item 1 | 20 | 15 |
@@ -99,4 +99,4 @@ file-b・file-c・file-d は OA セクションに存在しないため、ここ
 - `file-b` が OA 側に出ないこと（`Filedownload (OA)` に file-b の行がない）。
 - 月別集計の総数（28 / 27）が内訳列の合計と一致しないこと（単純加算をしない根拠）。
 - `file-c` のように総数 > 0 でも Non-Logged In User が 0 の行があること（総数と非ログイン利用は別指標）。
-- 行レベルシート（`FileDownload` / `DetailVIew`）に元データが保持され、機関独自の再集計が可能なこと。
+- 行レベルシート（`File Download` / `Detail View`）に元データが保持され、機関独自の再集計が可能なこと。

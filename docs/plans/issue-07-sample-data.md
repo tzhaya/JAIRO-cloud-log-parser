@@ -44,7 +44,7 @@
 
 - 各シートの期待値表：`FileDownload`（8 行）、`Filedownload (OA)`（file-a のみ×2 か月）、`FileDownload by Month`（月ごとの合計。例：2025-01 の No. Of Times Downloaded の合計 = 28）、`DetailVIew`／`DetailVIew by Month`。
 - 確認ポイントの明文化：
-  - file-b が OA 側に出ないこと（`open_date` の挙動）
+  - file-b が OA 側に出ないこと（`open_date` 相当として設計した OA側なし例。原因が `open_date` であること自体は TSV から検証できない）
   - 全体合計 28 ≠ 内訳合計（単純加算しない根拠の実例）
   - 元データ（行レベル）が保持されること
 - 使い方：`samples/` フォルダの絶対パスを `Path` テーブル（B9）に貼り付けて「すべて更新」。
@@ -68,7 +68,7 @@
 | サンプル TSV がリポジトリに含まれる | 手順 1 |
 | 更新後の期待結果が記載されている | 手順 3 |
 | 両指標の違いを確認できる | file-c／file-d |
-| `open_date` が OA 側に出ない例 | file-b |
+| `open_date` 相当として設計した OA側なし例（原因自体は TSV から検証不可） | file-b |
 | 元データが保持されることの確認 | 期待値表（行レベルシート） |
 
 ## 検証
